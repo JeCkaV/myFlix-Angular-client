@@ -174,7 +174,7 @@ export class FetchApiDataService {
     // Get Username stored in local storage
     const username = localStorage.getItem('user');
     return this.http
-      .post(apiUrl + `users/${username}/movies/${movieID}`, null, {
+      .post(apiUrl + `users/${username}/favs/${movieID}`, null, {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + token,
         })
@@ -196,7 +196,7 @@ export class FetchApiDataService {
     // Get Username stored in local storage
     const username = localStorage.getItem('user');
     return this.http
-      .delete(apiUrl + `users/${username}/movies/${movieID}`, {
+      .delete(apiUrl + `users/${username}/favs/${movieID}`, {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + token,
         })
