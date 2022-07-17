@@ -47,8 +47,8 @@ export class MovieCardComponent implements OnInit {
    * @function getFavoriteMovies
    */
   getFavoriteMovies(): void {
-    this.fetchApiData.getFavoriteMovies().subscribe((resp: any) => {
-      this.favoriteMovies = resp;
+    this.fetchApiData.getUser().subscribe((resp: any) => {
+      this.favoriteMovies = resp.FavoriteMovies;
       console.log(this.favoriteMovies);
       return this.favoriteMovies;
     });
@@ -117,20 +117,21 @@ export class MovieCardComponent implements OnInit {
 
   /**
    * adds a movie to the list of favorite movies via an API call
-   * @param id 
+   * @param id
    * @function addFavoriteMovie
    */
-  addToFavoriteMovies(id: string): void {
+   addToFavoriteMovies(id: string): void {
     console.log(id);
     this.fetchApiData.addFavoriteMovie(id).subscribe((result) => {
       console.log(result);
       this.ngOnInit();
-    })
+    });
+    return this.getFavoriteMovies();
   }
 
   /**
    * removes a movie from the list of favorite movies via an API call
-   * @param id 
+   * @param id
    * @function removeFavoriteMovie
    */
   removeFromFavoriteMovies(id: string): void {
@@ -138,7 +139,8 @@ export class MovieCardComponent implements OnInit {
     this.fetchApiData.removeFavoriteMovie(id).subscribe((result) => {
       console.log(result);
       this.ngOnInit();
-    })
+    });
+    return this.getFavoriteMovies();
   }
 
 }

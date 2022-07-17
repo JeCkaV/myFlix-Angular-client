@@ -168,23 +168,19 @@ export class FetchApiDataService {
    * @param movieID 
    * @returns JSON object holding data about the updated user
    */
-  addFavoriteMovie(movieID: string): Observable<any> {
+   addFavoriteMovie(movieID: string): Observable<any> {
     // Get Authorization token stored in local storage
     const token = localStorage.getItem('token');
     // Get Username stored in local storage
     const username = localStorage.getItem('user');
     return this.http
-      .post(apiUrl + `users/${username}/favs/${movieID}`, null, {
+      .put(apiUrl + `users/${username}/favs/${movieID}`, null, {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + token,
-        })
+        }),
       })
-      .pipe(
-        map(this.extractResponseData),
-        catchError(this.handleError)
-      );
+      .pipe(map(this.extractResponseData), catchError(this.handleError));
   }
-
   /**
    * calls API endpoint to delete a movie from the user's list of favorite movies
    * @param movieID 
