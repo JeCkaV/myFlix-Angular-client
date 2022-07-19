@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
   user: any = {};
+  favMovies: any = [];
 
   constructor(
     public fetchApiData: FetchApiDataService,
@@ -25,6 +26,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUser();
+    this.getFavMovies();
   }
 
   /**
@@ -37,6 +39,14 @@ export class ProfileComponent implements OnInit {
       this.user = resp;
       console.log(this.user);
       return this.user;
+    })
+  }
+
+  getFavMovies(): void {
+    this.fetchApiData.getAllMovies().subscribe((resp: any) => {
+      console.log("Getting Fav movies")
+      this.favMovies = resp.filter((m: any) => this.user.FavoriteMovies.includes(m._id));
+      console.log(this.favMovies);
     })
   }
 
